@@ -105,7 +105,7 @@ System.register('flarum/tags/addTagControl', ['flarum/extend', 'flarum/utils/Dis
       if (discussion.canTag()) {
         items.add('tags', Button.component({
           children: app.translator.trans('flarum-tags.forum.discussion_controls.edit_tags_button'),
-          icon: 'tag',
+          icon: 'fa fa-tag',
           onclick: function onclick() {
             return app.modal.show(new TagDiscussionModal({ discussion: discussion }));
           }
@@ -277,7 +277,7 @@ System.register('flarum/tags/addTagList', ['flarum/extend', 'flarum/components/I
     // to the index page's sidebar.
     extend(IndexPage.prototype, 'navItems', function (items) {
       items.add('tags', LinkButton.component({
-        icon: 'th-large',
+        icon: 'fa fa-th-large',
         children: app.translator.trans('flarum-tags.forum.index.tags_link'),
         href: app.route('tags')
       }), -10);
@@ -364,7 +364,7 @@ System.register('flarum/tags/components/DiscussionTaggedPost', ['flarum/componen
         babelHelpers.createClass(DiscussionTaggedPost, [{
           key: 'icon',
           value: function icon() {
-            return 'tag';
+            return 'fa fa-tag';
           }
         }, {
           key: 'descriptionKey',
@@ -669,7 +669,7 @@ System.register('flarum/tags/components/TagDiscussionModal', ['flarum/components
                     type: 'submit',
                     className: 'Button Button--primary',
                     disabled: primaryCount < this.minPrimary || secondaryCount < this.minSecondary,
-                    icon: 'check',
+                    icon: 'fa fa-check',
                     children: app.translator.trans('flarum-tags.forum.choose_tags.submit_button')
                   })
                 )
@@ -852,6 +852,12 @@ System.register('flarum/tags/components/TagHero', ['flarum/Component'], function
           value: function view() {
             var tag = this.props.tag;
             var color = tag.color();
+            app.setTitle(tag.name());
+            var description = tag.description();
+            if (!description) {
+              description = app.translator.trans('flarum-tags.forum.meta_description.discussions_tagged_text', { tag: tag.name() }).join('');
+            }
+            app.setDescription(description);
 
             return m(
               'header',
@@ -978,7 +984,7 @@ System.register('flarum/tags/components/TagsPage', ['flarum/Component', 'flarum/
             }));
 
             app.current = this;
-            app.history.push('tags', icon('th-large'));
+            app.history.push('tags', icon('fa fa-th-large'));
             app.drawer.hide();
             app.modal.close();
           }
@@ -991,6 +997,8 @@ System.register('flarum/tags/components/TagsPage', ['flarum/Component', 'flarum/
             var cloud = this.tags.filter(function (tag) {
               return tag.position() === null;
             });
+            app.setTitle('');
+            app.setDescription('');
 
             return m(
               'div',

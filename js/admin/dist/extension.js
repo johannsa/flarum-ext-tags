@@ -422,7 +422,7 @@ System.register('flarum/tags/addTagChangePermission', ['flarum/extend', 'flarum/
   _export('default', function () {
     extend(PermissionGrid.prototype, 'startItems', function (items) {
       items.add('allowTagChange', {
-        icon: 'tag',
+        icon: 'fa fa-tag',
         label: app.translator.trans('flarum-tags.admin.permissions.allow_edit_tags_label'),
         setting: function setting() {
           var minutes = parseInt(app.data.settings.allow_tag_change, 10);
@@ -458,7 +458,7 @@ System.register('flarum/tags/addTagPermission', ['flarum/extend', 'flarum/compon
   _export('default', function () {
     extend(PermissionGrid.prototype, 'moderateItems', function (items) {
       items.add('tag', {
-        icon: 'tag',
+        icon: 'fa fa-tag',
         label: app.translator.trans('flarum-tags.admin.permissions.tag_discussions_label'),
         permission: 'discussion.tag'
       }, 95);
@@ -516,7 +516,7 @@ System.register('flarum/tags/addTagsPane', ['flarum/extend', 'flarum/components/
     extend(AdminNav.prototype, 'items', function (items) {
       items.add('tags', AdminLinkButton.component({
         href: app.route('tags'),
-        icon: 'tags',
+        icon: 'fa fa-tags',
         children: app.translator.trans('flarum-tags.admin.nav.tags_button'),
         description: app.translator.trans('flarum-tags.admin.nav.tags_text')
       }));
@@ -593,7 +593,7 @@ System.register('flarum/tags/addTagsPermissionScope', ['flarum/extend', 'flarum/
           className: 'Dropdown--restrictByTag',
           buttonClassName: 'Button Button--text',
           label: app.translator.trans('flarum-tags.admin.permissions.restrict_by_tag_heading'),
-          icon: 'plus',
+          icon: 'fa fa-plus',
           caretIcon: null,
           children: tags.map(function (tag) {
             return Button.component({
@@ -957,7 +957,7 @@ System.register('flarum/tags/components/TagsPage', ['flarum/components/Page', 'f
         ),
         Button.component({
           className: 'Button Button--link',
-          icon: 'pencil',
+          icon: 'fa fa-pencil-alt',
           onclick: function onclick() {
             return app.modal.show(new EditTagModal({ tag: tag }));
           }
@@ -1015,7 +1015,7 @@ System.register('flarum/tags/components/TagsPage', ['flarum/components/Page', 'f
                   ),
                   Button.component({
                     className: 'Button Button--primary',
-                    icon: 'plus',
+                    icon: 'fa fa-plus',
                     children: app.translator.trans('flarum-tags.admin.tags.create_tag_button'),
                     onclick: function onclick() {
                       return app.modal.show(new EditTagModal());
